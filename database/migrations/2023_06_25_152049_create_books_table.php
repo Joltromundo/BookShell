@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('category');
             $table->integer('pages');
             $table->date('release');
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 
