@@ -16,7 +16,9 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {   
-        //Criando dados "falsos" bara popular o BD
+        /**
+         * Creating fake data to seed the database 
+        */
         return [
             'title' => fake()->realText(25, 2),
             'synopsis' => fake()->realText(200, 2),

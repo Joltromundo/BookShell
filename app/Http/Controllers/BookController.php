@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+     * Return all books
+    */
     public function index()
     {
         $books = Book::all();
@@ -18,8 +18,8 @@ class BookController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
+     * Returnig the book by ID
+    */
     public function show(string $id)
     {
         $book = Book::find($id);
