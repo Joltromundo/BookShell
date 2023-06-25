@@ -1,66 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+API de Livros - Documentação
+Esta é a documentação da API de Livros, que fornece acesso a informações sobre livros. Para acessar os dados da API, é necessário autenticar-se primeiro usando o endpoint /api/auth/login.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Autenticação
+Endpoint: /api/auth/login
 
-## About Laravel
+Método: POST
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Corpo da solicitação (JSON):
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+json
+Copy code
+{
+  "email": "seu_email",
+  "password": "sua_senha"
+}
+Resposta de sucesso:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+json
+Copy code
+{
+  "access_token": "seu_token_de_acesso",
+  "token_type": "Bearer",
+  "expires_in": 3600
+}
+Endpoints Disponíveis
+Para acessar os dados dos livros, você precisa incluir o token de acesso no cabeçalho de autorização de todas as solicitações GET. O cabeçalho de autorização deve ter o valor "Bearer <token_de_acesso>".
 
-## Learning Laravel
+1. Listar todos os livros
+Endpoint: /api/books
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Método: GET
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Cabeçalho de Autorização:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+makefile
+Copy code
+Authorization: Bearer <seu_token_de_acesso>
+Resposta de sucesso:
 
-## Laravel Sponsors
+json
+Copy code
+[
+  {
+    "id": 1,
+    "title": "Título do Livro 1",
+    "author": "Autor do Livro 1",
+    "published_year": 2022
+  },
+  {
+    "id": 2,
+    "title": "Título do Livro 2",
+    "author": "Autor do Livro 2",
+    "published_year": 2021
+  },
+  ...
+]
+2. Obter detalhes de um livro
+Endpoint: /api/books/{id}
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Método: GET
 
-### Premium Partners
+Cabeçalho de Autorização:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+makefile
+Copy code
+Authorization: Bearer <seu_token_de_acesso>
+Parâmetro de URL:
 
-## Contributing
+{id}: O ID do livro desejado
+Resposta de sucesso:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+json
+Copy code
+{
+  "id": 1,
+  "title": "Título do Livro",
+  "author": "Autor do Livro",
+  "published_year": 2022
+}
+Exemplo de Uso
+Aqui está um exemplo de como usar a API de Livros:
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Faça uma solicitação POST para o endpoint /api/auth/login com seu email e senha para obter o token de acesso.
+Copie o token de acesso retornado na resposta.
+Para listar todos os livros, faça uma solicitação GET para o endpoint /api/books e inclua o token de acesso no cabeçalho de autorização.
+Para obter os detalhes de um livro específico, faça uma solicitação GET para o endpoint /api/books/{id} substituindo {id} pelo ID do livro desejado e inclua o token de acesso no cabeçalho de autorização.
+Certifique-se de substituir <seu_token_de_acesso>, <seu_email> e <sua_senha> com suas próprias informações de autenticação.
