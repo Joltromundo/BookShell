@@ -63,7 +63,7 @@ Authorization: Bearer &lt;seu_token_de_acesso&gt;
         </code>
     </pre>
 
-    <small>Veja um exemplo real em: <a href="{{ route('books')}}">/books</a></small>
+    <small>Veja um exemplo real em: /books</small>
 
     <h3>2. Obter detalhes de um livro</h3>
 
