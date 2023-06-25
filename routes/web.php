@@ -18,5 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/books', [BookController::class, 'index'])->name('books');
-Route::get('/books/{id}', [BookController::class, 'show']);
+Route::middleware('cors')->group(function(){
+    Route::get('/books', [BookController::class, 'index'])->name('books');;
+    Route::get('/books/{id}', [BookController::class, 'show']);
+});
