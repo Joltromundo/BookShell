@@ -8,7 +8,7 @@ class CorsMiddleware
 {
     public function handle($request, Closure $next)
     {
-        $allowedOrigin = 'http://127.0.0.1:8000/';
+        $allowedOrigin = env('APP_URL');
 
         if ($request->header('Origin') !== $allowedOrigin) {
             return response()->json(['error' => 'Access denied'], 403);
